@@ -5,6 +5,7 @@ import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -68,7 +69,7 @@ public class SecondActivity extends AppCompatActivity {
                         + "}";
         private static final float[] VERTEX = {   // in counterclockwise order:
                 0, 1, 0,  // top
-                -0.5f, -1, 0,  // bottom left
+                -1f, -1f, 0,  // bottom left
                 1, -1, 0,  // bottom right
         };
 
@@ -155,10 +156,11 @@ public class SecondActivity extends AppCompatActivity {
              * @param zNear 视锥体近平面的z轴坐标了
              * @param zFar 视锥体远平面的z轴坐标了
              */
-            Matrix.perspectiveM(mMVPMatrix, 0, 45, (float) width / height, 0.1f, 100f);
+            Matrix.perspectiveM(mMVPMatrix, 0, 45, (float) width / height, 1f, 10f);
+            Log.d("######mMVPMatrix-->","lengtn="+mMVPMatrix.length+"  ["+width+","+height+"]"+"   ("+(float) width / height+ ")    "+mMVPMatrix[0]+","+mMVPMatrix[1]+","+mMVPMatrix[2]+","+mMVPMatrix[3]);
             //由于历史原因，Matrix.perspectiveM 会让 z 轴方向倒置，所以左乘投影矩阵之后，顶点 z 坐标需要在 -zNear~-zFar 范围内才会可见。
             //前面我们顶点的 z 坐标都是 0，我们可以把它修改为 -0.1f~-100f 之间的值，也可以通过一个位移变换来达到此目的。
-            Matrix.translateM(mMVPMatrix, 0, 0f, 0f, -2.5f);
+            Matrix.translateM(mMVPMatrix, 0, 0f, 0f, -5f);
         }
 
 
