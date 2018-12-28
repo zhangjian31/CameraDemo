@@ -191,11 +191,15 @@ public class SecondActivity extends AppCompatActivity {
 
 
             //在绘制的时候向shader传递
+            //count 矩阵数量
             GLES20.glUniformMatrix4fv(mMatrixHandle, 1, false, mMVPMatrix, 0);
 
             //glDrawArrays/glDrawElements执行完毕之后，GPU 就在显存中处理好帧数据了，但此时并没有更新到 surface 上，
             //GLSurfaceView 会在调用 renderer.onDrawFrame 之后，调用 eglSwapBuffers，来把显存的帧数据更新到 surface 上的。
-            GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 3);
+            //GL_TRIANGLES每三个顶之间绘制三角形，之间不连接
+            //first从数组缓存中的哪一位开始绘制，一般都定义为0
+            //count顶点的数量
+            GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 3);//纹理映射
         }
 
         /**
