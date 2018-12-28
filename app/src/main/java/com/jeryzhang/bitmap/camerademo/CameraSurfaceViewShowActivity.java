@@ -17,7 +17,15 @@ import java.io.IOException;
  * SurfaceView预览相机视图不支持透明度，
  * 可以设置缩放旋转属性。如果需要做动画特效的话不推荐使用SurfaceView显示视图。
  * 可以使用TextureView或者GlSurfaceView来显示。
+ *
+ * 1、在xml文件中设置SurfaceView 。
+ * 2、实现SurfaceHolder.Callback的回调。
+ * 3、打开摄像头Camera.open(0);
+ * 4、设置摄像头相关参数；
+ * 5、将摄像头数据设置到SurfaceView中，并开启预览。
+ *
  */
+
 public class CameraSurfaceViewShowActivity extends AppCompatActivity implements SurfaceHolder.Callback {
     private SurfaceView mSurfaceView;
     private SurfaceHolder mHolder;
@@ -72,7 +80,7 @@ public class CameraSurfaceViewShowActivity extends AppCompatActivity implements 
             public void onAutoFocus(boolean success, Camera camera) {
                 if (success) {
                     mParameters = mCamera.getParameters();
-                    mParameters.setPictureFormat(PixelFormat.JPEG); //图片输出格式
+                    mParameters.setPictureFormat(PixelFormat.RGB_888); //图片输出格式
 //                    mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);//预览持续发光
                     mParameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);//持续对焦模式
                     mCamera.setParameters(mParameters);
