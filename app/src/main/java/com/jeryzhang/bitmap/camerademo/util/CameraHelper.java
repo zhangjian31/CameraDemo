@@ -74,6 +74,14 @@ public class CameraHelper implements Camera.PreviewCallback {
         }
     }
 
+    /**
+     * 1、使用Camera的PreviewCallback预览回调接口
+     * onPreviewFrame()获取的数据格式只能是NV21或NV12
+     * 一般情况下NV21或NV12需要转成RGB格式然后进行处理，这样太耗时了
+     * 2、基于以上缺点，使用SurfaceTexture来获取预览图像。
+     * @param data
+     * @param camera
+     */
     @Override
     public void onPreviewFrame(byte[] data, Camera camera) {
         if (null != mPreviewCallback) {
